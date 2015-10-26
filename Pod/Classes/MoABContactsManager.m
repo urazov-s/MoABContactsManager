@@ -183,6 +183,7 @@
         ABRecordRef contactRef = ABAddressBookGetPersonWithRecordID(_addressBook, contactRecordId);
         
         ABAddressBookRemoveRecord(_addressBook, contactRef, errorRef);
+        ABAddressBookSave(_addressBook, errorRef);
         
         if (completion) {
             dispatch_async(dispatch_get_main_queue(), ^{
