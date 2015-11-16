@@ -369,7 +369,7 @@
         
         NSString *value = (__bridge_transfer NSString *)(ABMultiValueCopyValueAtIndex(multiValueRef, i));
         CFStringRef locLabel = ABMultiValueCopyLabelAtIndex(multiValueRef, i);
-        NSString *label =(__bridge_transfer NSString*)ABAddressBookCopyLocalizedLabel(locLabel);
+        NSString *label =(__bridge_transfer NSString*)locLabel;
         
         CFBridgingRelease(locLabel);
         
