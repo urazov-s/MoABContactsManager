@@ -343,6 +343,9 @@
         for (NSDictionary *data in array) {
             
             [data enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+                if ([(NSString *) key isEqualToString:@""]) {
+                    key = nil;
+                }
                 ABMultiValueAddValueAndLabel(multiValueRef, (__bridge CFTypeRef)(obj), (__bridge CFTypeRef)(key), NULL);
             }];
             
