@@ -343,6 +343,9 @@
         for (NSDictionary *data in array) {
             
             [data enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+                if ([(NSString *) key isEqualToString:@""]) {
+                    key = nil;
+                }
                 ABMultiValueAddValueAndLabel(multiValueRef, (__bridge CFTypeRef)(obj), (__bridge CFTypeRef)(key), NULL);
             }];
             
@@ -370,10 +373,13 @@
         NSString *value = (__bridge_transfer NSString *)(ABMultiValueCopyValueAtIndex(multiValueRef, i));
         CFStringRef locLabel = ABMultiValueCopyLabelAtIndex(multiValueRef, i);
         NSString *label =(__bridge_transfer NSString*)locLabel;
-        
-        CFBridgingRelease(locLabel);
+        if (label == nil) {
+            label = @"";
+        }
         
         [result addObject:@{label: value}];
+
+        CFBridgingRelease(locLabel);
         
     }
     CFRelease(multiValueRef);
